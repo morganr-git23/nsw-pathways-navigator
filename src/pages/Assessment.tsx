@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Layout } from "@/components/Layout";
 import { useAssessment } from "@/contexts/AssessmentContext";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 export default function Assessment() {
   const navigate = useNavigate();
@@ -20,6 +23,8 @@ export default function Assessment() {
     setCurrentQuestionIndex,
   } = useAssessment();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [email, setEmail] = useState("");
   
   // If assessment is already completed, redirect to results
   useEffect(() => {
@@ -59,12 +64,29 @@ export default function Assessment() {
     }
   };
 
-  const handleComplete = () => {
+  const handleCompleteAssessment = () => {
     if (selectedAnswer && currentQuestion) {
       answerQuestion(currentQuestion.id, selectedAnswer);
-      completeAssessment();
-      navigate("/results");
+      setShowEmailForm(true); // Show email form instead of completing
     }
+  };
+
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Store email (in a real app, you would save it to a database)
+    localStorage.setItem("userEmail", email);
+    
+    // Complete assessment and navigate to results
+    completeAssessment();
+    navigate("/results");
   };
 
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
@@ -84,6 +106,59 @@ export default function Assessment() {
         return domain;
     }
   };
+
+  if (showEmailForm) {
+    return (
+      <Layout>
+        <div className="container mx-auto py-12 px-4">
+          <div className="max-w-md mx-auto">
+            <Card className="shadow-md">
+              <CardHeader>
+                <CardTitle className="text-xl">Almost Done!</CardTitle>
+                <CardDescription>
+                  Please provide your email address to view your assessment results
+                </CardDescription>
+              </CardHeader>
+              <form onSubmit={handleEmailSubmit}>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="Enter your email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      We'll use this to send you your results and additional resources.
+                    </p>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <div className="flex w-full justify-between">
+                    <Button 
+                      variant="outline" 
+                      type="button"
+                      onClick={() => setShowEmailForm(false)}
+                    >
+                      Back
+                    </Button>
+                    <Button type="submit" className="bg-nsw-accent hover:bg-red-700">
+                      Submit & View Results
+                    </Button>
+                  </div>
+                </CardFooter>
+              </form>
+            </Card>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -143,7 +218,7 @@ export default function Assessment() {
 
                 {isLastQuestion ? (
                   <Button
-                    onClick={handleComplete}
+                    onClick={handleCompleteAssessment}
                     disabled={!selectedAnswer}
                     className="bg-nsw-accent hover:bg-red-700"
                   >

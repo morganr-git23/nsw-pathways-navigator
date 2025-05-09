@@ -77,6 +77,9 @@ export default function Results() {
     }
   };
 
+  // Get user email from localStorage
+  const userEmail = localStorage.getItem("userEmail") || "Unknown";
+
   return (
     <Layout>
       <div className="container mx-auto py-12 px-4">
@@ -84,7 +87,7 @@ export default function Results() {
           <div className="text-center mb-10">
             <h1 className="text-3xl font-bold mb-4 text-nsw-blue">Your Assessment Results</h1>
             <p className="text-gray-600 text-lg">
-              Based on your responses, we've analyzed your skills across the LLND domains
+              Results for: {userEmail}
             </p>
           </div>
 
@@ -104,7 +107,9 @@ export default function Results() {
                 </div>
               </div>
               <p className="text-center text-lg mb-4">
-                {results.acsf.description}
+                {results.overallLevel === 1 ? 
+                  "Go back to school numpty" : 
+                  results.acsf.description}
               </p>
               <div className="bg-gray-100 p-6 rounded-lg">
                 <h3 className="font-bold text-xl mb-2 text-nsw-blue">Recommended Pathway:</h3>
@@ -142,7 +147,9 @@ export default function Results() {
                       </div>
                       <Progress value={progressPercentage} className="h-2" />
                       <p className="text-sm text-gray-600">
-                        {getACSFLevelDescription(domainScore.level)}
+                        {domainScore.level === 1 ? 
+                          "Needs significant improvement" : 
+                          getACSFLevelDescription(domainScore.level)}
                       </p>
                     </div>
                   </CardContent>
