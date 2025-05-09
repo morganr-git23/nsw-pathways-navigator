@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -18,6 +17,7 @@ export default function Assessment() {
     answerQuestion,
     completeAssessment,
     isCompleted,
+    setCurrentQuestionIndex,
   } = useAssessment();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   
@@ -55,7 +55,7 @@ export default function Assessment() {
 
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
-      useAssessment().setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
 
