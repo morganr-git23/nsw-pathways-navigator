@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Layout } from "@/components/Layout";
 import { useAssessment } from "@/contexts/AssessmentContext";
 import { Domain } from "@/types/assessment";
+import { ChevronRight } from "lucide-react";
 
 export default function Results() {
   const navigate = useNavigate();
@@ -118,7 +119,15 @@ export default function Results() {
               <div className="bg-gray-100 p-6 rounded-lg">
                 <h3 className="font-bold text-xl mb-2 text-nsw-blue">Recommended Pathway:</h3>
                 <p className="text-lg font-semibold mb-2">{results.recommendedPathway}</p>
-                <p className="text-gray-700">{results.pathwayDetails}</p>
+                <p className="text-gray-700 mb-4">{results.pathwayDetails}</p>
+                <div className="flex justify-end">
+                  <Button 
+                    className="bg-nsw-blue hover:bg-nsw-lightBlue flex items-center gap-1"
+                    onClick={() => navigate('/pathways')}
+                  >
+                    Explore recommended pathways <ChevronRight size={16} />
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -162,47 +171,41 @@ export default function Results() {
             })}
           </div>
 
-          {/* Next steps */}
-          <Card className="bg-gray-50 border border-gray-200 shadow-sm">
+          {/* Next steps with updated navigation */}
+          <Card className="bg-gray-50 border border-gray-200 shadow-sm mb-8">
             <CardHeader>
               <CardTitle>Next Steps</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                Based on your assessment, you may want to explore the following resources:
+                Based on your assessment, we recommend you explore:
               </p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li>
-                  <a
-                    href="https://education.nsw.gov.au/skills-nsw"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-nsw-blue hover:underline"
-                  >
-                    Skills NSW - Find VET courses and providers
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.tafensw.edu.au/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-nsw-blue hover:underline"
-                  >
-                    TAFE NSW - Browse available courses
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.myskills.gov.au/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-nsw-blue hover:underline"
-                  >
-                    MySkills - Compare training options
-                  </a>
-                </li>
-              </ul>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start hover:bg-nsw-lightBlue hover:text-white"
+                  onClick={() => navigate('/pathways')}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="bg-nsw-blue rounded-full p-1 text-white">
+                      <ChevronRight size={16} />
+                    </span>
+                    Explore Recommended Pathways
+                  </div>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start hover:bg-nsw-lightBlue hover:text-white"
+                  onClick={() => navigate('/resources')}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="bg-nsw-blue rounded-full p-1 text-white">
+                      <ChevronRight size={16} />
+                    </span>
+                    Browse VET Resources
+                  </div>
+                </Button>
+              </div>
             </CardContent>
             <CardFooter className="flex justify-between flex-wrap gap-4">
               <Button onClick={handleStartOver} variant="outline">

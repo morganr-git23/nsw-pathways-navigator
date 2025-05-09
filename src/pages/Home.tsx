@@ -6,7 +6,8 @@ import {
   GraduationCap, 
   BookOpen, 
   ListCheck, 
-  Users 
+  Users,
+  ArrowRight 
 } from "lucide-react";
 
 export default function Home() {
@@ -36,45 +37,65 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-12 text-nsw-blue">How It Works</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4">
-                <ListCheck className="text-white" size={24} />
+            <Link to="/assessment" className="group">
+              <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow hover:bg-gray-100 transform hover:-translate-y-1 transition-transform duration-300">
+                <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4 group-hover:bg-nsw-lightBlue transition-colors">
+                  <ListCheck className="text-white" size={24} />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-nsw-blue">1. Complete Assessment</h3>
+                <p className="text-gray-600 mb-4">
+                  Answer questions about your language, literacy, numeracy, and digital skills.
+                </p>
+                <span className="inline-flex items-center text-nsw-blue group-hover:text-nsw-lightBlue">
+                  Start now <ArrowRight className="ml-1" size={16} />
+                </span>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-nsw-blue">1. Complete Assessment</h3>
-              <p className="text-gray-600">
-                Answer questions about your language, literacy, numeracy, and digital skills.
-              </p>
-            </div>
+            </Link>
             
-            <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4">
-                <BookOpen className="text-white" size={24} />
+            <Link to="/results" className="group">
+              <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow hover:bg-gray-100 transform hover:-translate-y-1 transition-transform duration-300">
+                <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4 group-hover:bg-nsw-lightBlue transition-colors">
+                  <BookOpen className="text-white" size={24} />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-nsw-blue">2. Review Results</h3>
+                <p className="text-gray-600 mb-4">
+                  Get a detailed breakdown of your skills aligned with the Australian Core Skills Framework.
+                </p>
+                <span className="inline-flex items-center text-nsw-blue group-hover:text-nsw-lightBlue">
+                  View results <ArrowRight className="ml-1" size={16} />
+                </span>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-nsw-blue">2. Review Results</h3>
-              <p className="text-gray-600">
-                Get a detailed breakdown of your skills aligned with the Australian Core Skills Framework.
-              </p>
-            </div>
+            </Link>
             
-            <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4">
-                <GraduationCap className="text-white" size={24} />
+            <Link to="/pathways" className="group">
+              <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow hover:bg-gray-100 transform hover:-translate-y-1 transition-transform duration-300">
+                <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4 group-hover:bg-nsw-lightBlue transition-colors">
+                  <GraduationCap className="text-white" size={24} />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-nsw-blue">3. Explore Pathways</h3>
+                <p className="text-gray-600 mb-4">
+                  Receive tailored recommendations for VET courses based on your skill profile.
+                </p>
+                <span className="inline-flex items-center text-nsw-blue group-hover:text-nsw-lightBlue">
+                  See pathways <ArrowRight className="ml-1" size={16} />
+                </span>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-nsw-blue">3. Explore Pathways</h3>
-              <p className="text-gray-600">
-                Receive tailored recommendations for VET courses based on your skill profile.
-              </p>
-            </div>
+            </Link>
             
-            <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4">
-                <Users className="text-white" size={24} />
+            <Link to="/resources" className="group">
+              <div className="bg-gray-50 rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-shadow hover:bg-gray-100 transform hover:-translate-y-1 transition-transform duration-300">
+                <div className="mx-auto w-16 h-16 bg-nsw-blue rounded-full flex items-center justify-center mb-4 group-hover:bg-nsw-lightBlue transition-colors">
+                  <Users className="text-white" size={24} />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-nsw-blue">4. Connect with Resources</h3>
+                <p className="text-gray-600 mb-4">
+                  Access information about NSW VET providers offering your recommended courses.
+                </p>
+                <span className="inline-flex items-center text-nsw-blue group-hover:text-nsw-lightBlue">
+                  Find resources <ArrowRight className="ml-1" size={16} />
+                </span>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-nsw-blue">4. Connect with Resources</h3>
-              <p className="text-gray-600">
-                Access information about NSW VET providers offering your recommended courses.
-              </p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>

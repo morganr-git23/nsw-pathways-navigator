@@ -9,6 +9,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Assessment from "./pages/Assessment";
 import Results from "./pages/Results";
+import Pathways from "./pages/Pathways";
+import Resources from "./pages/Resources";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -31,6 +33,8 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/assessment" element={<Assessment />} />
               <Route path="/results" element={<Results />} />
+              <Route path="/pathways" element={<Pathways />} />
+              <Route path="/resources" element={<Resources />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
