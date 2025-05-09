@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -23,8 +22,9 @@ export default function Assessment() {
     setCurrentQuestionIndex,
   } = useAssessment();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   
   // If assessment is already completed, redirect to results
   useEffect(() => {
@@ -67,11 +67,11 @@ export default function Assessment() {
   const handleCompleteAssessment = () => {
     if (selectedAnswer && currentQuestion) {
       answerQuestion(currentQuestion.id, selectedAnswer);
-      setShowEmailForm(true); // Show email form instead of completing
+      setShowContactForm(true); // Show contact form instead of completing
     }
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Simple email validation
@@ -81,8 +81,14 @@ export default function Assessment() {
       return;
     }
 
-    // Store email (in a real app, you would save it to a database)
+    if (!name.trim()) {
+      toast.error("Please enter your name");
+      return;
+    }
+
+    // Store user contact info (in a real app, you would save it to a database)
     localStorage.setItem("userEmail", email);
+    localStorage.setItem("userName", name);
     
     // Complete assessment and navigate to results
     completeAssessment();
@@ -107,7 +113,7 @@ export default function Assessment() {
     }
   };
 
-  if (showEmailForm) {
+  if (showContactForm) {
     return (
       <Layout>
         <div className="container mx-auto py-12 px-4">
@@ -116,12 +122,23 @@ export default function Assessment() {
               <CardHeader>
                 <CardTitle className="text-xl">Almost Done!</CardTitle>
                 <CardDescription>
-                  Please provide your email address to view your assessment results
+                  Please provide your contact information to view your assessment results
                 </CardDescription>
               </CardHeader>
-              <form onSubmit={handleEmailSubmit}>
+              <form onSubmit={handleContactSubmit}>
                 <CardContent>
                   <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Your Name</Label>
+                      <Input 
+                        id="name" 
+                        type="text" 
+                        placeholder="Enter your full name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address</Label>
                       <Input 
@@ -143,7 +160,7 @@ export default function Assessment() {
                     <Button 
                       variant="outline" 
                       type="button"
-                      onClick={() => setShowEmailForm(false)}
+                      onClick={() => setShowContactForm(false)}
                     >
                       Back
                     </Button>

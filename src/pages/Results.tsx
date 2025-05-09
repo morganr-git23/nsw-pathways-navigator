@@ -77,8 +77,9 @@ export default function Results() {
     }
   };
 
-  // Get user email from localStorage
+  // Get user info from localStorage
   const userEmail = localStorage.getItem("userEmail") || "Unknown";
+  const userName = localStorage.getItem("userName") || "Unknown";
 
   return (
     <Layout>
@@ -86,8 +87,11 @@ export default function Results() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <h1 className="text-3xl font-bold mb-4 text-nsw-blue">Your Assessment Results</h1>
+            <p className="text-gray-600 text-lg mb-1">
+              Name: {userName}
+            </p>
             <p className="text-gray-600 text-lg">
-              Results for: {userEmail}
+              Email: {userEmail}
             </p>
           </div>
 
