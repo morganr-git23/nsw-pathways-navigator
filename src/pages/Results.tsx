@@ -112,7 +112,9 @@ export default function Results() {
                 </div>
               </div>
               <p className="text-center text-lg mb-4">
-                {results.acsf.description}
+                {results.overallLevel === 1 ? 
+                  "Go back to school numpty" : 
+                  results.acsf.description}
               </p>
               <div className="bg-gray-100 p-6 rounded-lg">
                 <h3 className="font-bold text-xl mb-2 text-nsw-blue">Recommended Pathway:</h3>
@@ -158,7 +160,9 @@ export default function Results() {
                       </div>
                       <Progress value={progressPercentage} className="h-2" />
                       <p className="text-sm text-gray-600">
-                        {getACSFLevelDescription(domainScore.level)}
+                        {domainScore.level === 1 ? 
+                          "Needs significant improvement" : 
+                          getACSFLevelDescription(domainScore.level)}
                       </p>
                     </div>
                   </CardContent>
